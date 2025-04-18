@@ -28,6 +28,17 @@ class Tree {
     this.root = buildTree(mergeSort(array));
   }
 
+  insert(value) {
+    const nearestNode = this.findNearestNode(value);
+    const newNode = new Node(value);
+    if (value <= nearestNode.data) {
+      nearestNode.left = newNode;
+    }
+    if (value > nearestNode.data) {
+      nearestNode.right = newNode;
+    }
+  }
+
   findValue(value) {
     const nearestNode = this.findNearestNode(value);
     if (nearestNode.data === value) return nearestNode;
@@ -90,5 +101,6 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
   }
 };
 
+tree.insert(53);
+tree.insert(78);
 prettyPrint(tree.root);
-console.log(tree.findValue(324));
