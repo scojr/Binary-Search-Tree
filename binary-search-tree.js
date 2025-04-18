@@ -1,17 +1,16 @@
-const unsortedArray = [7, 2, 4, 1, 3, 5, 6];
+const unsortedArray = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 function buildTree(
   array,
   start = 0,
   end = array.length - 1,
 ) {
-  const sortedArray = mergeSort(array);
   if (start > end) return null;
   else {
     const mid = Math.floor((start + end) / 2);
-    const root = new Node(sortedArray[mid]);
-    root.left = buildTree(sortedArray, start, mid - 1)
-    root.right = buildTree(sortedArray, mid + 1, end)
+    const root = new Node(array[mid]);
+    root.left = buildTree(array, start, mid - 1)
+    root.right = buildTree(array, mid + 1, end)
     return root;
   }
 }
@@ -26,7 +25,16 @@ class Node {
 
 class Tree {
   constructor(array) {
-    this.root = buildTree(array);
+    this.root = buildTree(mergeSort(array));
+  }
+  insert(value) {
+
+  }
+  deleteItem(value) {
+
+  }
+  findValue() {
+
   }
 }
 
@@ -47,10 +55,14 @@ function mergeSort(array) {
         return sortedArray.concat(array1.slice(arr1Index));
       }
       if (array1[arr1Index] <= array2[arr2Index]) {
-        sortedArray.push(array1[arr1Index]);
+        if (sortedArray[sortedArray.length - 1] !== array1[arr1Index]) {
+          sortedArray.push(array1[arr1Index]);
+        }
         arr1Index++;
       } else {
-        sortedArray.push(array2[arr2Index]);
+        if (sortedArray[sortedArray.length - 1] !== array2[arr2Index]) {
+          sortedArray.push(array2[arr2Index]);
+        }
         arr2Index++;
       }
     }
