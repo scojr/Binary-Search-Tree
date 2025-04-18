@@ -27,20 +27,18 @@ class Tree {
   constructor(array) {
     this.root = buildTree(mergeSort(array));
   }
-  insert(value) {
 
+  findValue(value) {
+    const nearestNode = this.findNearestNode(value);
+    if (nearestNode.data === value) return nearestNode;
+    return null;
   }
-  deleteItem(value) {
 
-  }
-  findValue(value, node = this.root) {
+  findNearestNode(value, node = this.root, prevNode) {
+    if (node === null) return prevNode;
     if (node.data === value) return node;
-    if (node.left || node.right) {
-      if (node.data > value) return this.findValue(value, node.left);
-      if (node.data < value) return this.findValue(value, node.right);
-    } else {
-      return null;
-    }
+    if (node.data > value) return this.findNearestNode(value, node.left, node);
+    if (node.data < value) return this.findNearestNode(value, node.right, node);
   }
 }
 
