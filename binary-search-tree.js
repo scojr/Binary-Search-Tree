@@ -33,8 +33,14 @@ class Tree {
   deleteItem(value) {
 
   }
-  findValue() {
-
+  findValue(value, node = this.root) {
+    if (node.data === value) return node;
+    if (node.left || node.right) {
+      if (node.data > value) return this.findValue(value, node.left);
+      if (node.data < value) return this.findValue(value, node.right);
+    } else {
+      return null;
+    }
   }
 }
 
@@ -87,3 +93,4 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 prettyPrint(tree.root);
+console.log(tree.findValue(324));
