@@ -17,6 +17,19 @@ class Tree {
   constructor(array) {
     this.root = buildTree(array);
   }
+  insert(value) {
+    insertRecursion(this.root, value);
+    function insertRecursion(root, value) {
+      if (root === null) return new Node(value);
+      if (value === root.data) throw new Error(`Value ${value} already present in Tree`);
+      if (value < root.data) root.left = insertRecursion(root.left, value);
+      else if (value > root.data) root.right = insertRecursion(root.right, value);
+      return root;
+    }
+  }
+  deleteItem(value) {
+
+  }
   prettyPrint() {
     prettyPrintRecursion(this.root);
     function prettyPrintRecursion(node, prefix = "", isLeft = true) {
@@ -35,7 +48,8 @@ class Tree {
 }
 
 const myTree = new Tree(unsortedArrays[1]);
-console.log(myTree.prettyPrint());
+myTree.insert(11);
+myTree.prettyPrint();
 
 function buildTree(array) {
   const sortedArray = mergeSort(array);
