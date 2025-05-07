@@ -1,6 +1,6 @@
 const unsortedArrays = [
   [20, 10, 30],
-  [0, 1, 3, 4, 6, 8],
+  [0, 1, 3, 4, 6, 8, 7, 7, 7],
   [-6, 0, 2.6, 11, 13],
   [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324],
 ];
@@ -66,18 +66,22 @@ function mergeSort(array) {
     let arr2Index = 0;
     const sortedArray = [];
     for (let i = 0; i < totalLength - 1; i++) {
-      if (typeof array2[arr2Index] !== "number") {
+      if (typeof array2[arr2Index] !== 'number') {
         return sortedArray.concat(array1.slice(arr1Index));
       }
       if (array1[arr1Index] <= array2[arr2Index]) {
-        sortedArray.push(array1[arr1Index]);
+        if (sortedArray[sortedArray.length - 1] !== array1[arr1Index]) {
+          sortedArray.push(array1[arr1Index]);
+        }
         arr1Index++;
       } else {
-        sortedArray.push(array2[arr2Index]);
+        if (sortedArray[sortedArray.length - 1] !== array2[arr2Index]) {
+          sortedArray.push(array2[arr2Index]);
+        }
         arr2Index++;
       }
     }
-    sortedArray.push(array1[arr1Index] || array2[arr2Index]);
+    sortedArray.push(array1[arr1Index] || array2[arr2Index])
     return sortedArray;
   }
 }
