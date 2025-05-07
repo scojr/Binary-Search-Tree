@@ -19,16 +19,36 @@ class Tree {
   }
   insert(value) {
     insertRecursion(this.root, value);
-    function insertRecursion(root, value) {
-      if (root === null) return new Node(value);
-      if (value === root.data) throw new Error(`Value ${value} already present in Tree`);
-      if (value < root.data) root.left = insertRecursion(root.left, value);
-      else if (value > root.data) root.right = insertRecursion(root.right, value);
+    function insertRecursion(root, x) {
+      if (root === null) return new Node(x);
+      if (x === root.data) throw new Error(`Value ${x} already present in Tree`);
+      if (x < root.data) root.left = insertRecursion(root.left, x);
+      else if (x > root.data) root.right = insertRecursion(root.right, x);
       return root;
     }
   }
   deleteItem(value) {
+    deleteRecursion(this.root, value)
 
+    function getSuccessor(curr) {
+      curr = curr.right;
+      while (curr !== null && curr.left !== null) curr = curr.left;
+      return curr;
+    }
+
+    function deleteRecursion(root, x) {
+      if (root === null) return root;
+      if (root.data > x) root.left = deleteRecursion(root.left, x);
+      else if (root.data < x) root.right = deleteRecursion(root.right, x);
+      else {
+        if (root.left === null) return root.right;
+        if (root.right === null) return root.left;
+        let successor = getSuccessor(root);
+        root.data = successor.data;
+        root.right = deleteRecursion(root.right, successor.data);
+      }
+      return root;
+    }
   }
   prettyPrint() {
     prettyPrintRecursion(this.root);
@@ -49,6 +69,7 @@ class Tree {
 
 const myTree = new Tree(unsortedArrays[1]);
 myTree.insert(11);
+myTree.deleteItem(4);
 myTree.prettyPrint();
 
 function buildTree(array) {
