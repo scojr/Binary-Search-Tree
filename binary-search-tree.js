@@ -14,8 +14,8 @@ class Node {
 }
 
 class Tree {
-  constructor(root) {
-    this.root = root;
+  constructor(array) {
+    this.root = buildTree(array);
   }
   prettyPrint() {
     prettyPrintRecursion(this.root);
@@ -34,13 +34,13 @@ class Tree {
   }
 }
 
-const myTree = buildTree(unsortedArrays[1]);
+const myTree = new Tree(unsortedArrays[1]);
 console.log(myTree.prettyPrint());
 
 function buildTree(array) {
   const sortedArray = mergeSort(array);
   const root = buildTreeRecursion(sortedArray, 0, sortedArray.length - 1);
-  return new Tree(root);
+  return root;
 
   function buildTreeRecursion(array, start, end) {
     if (start > end) return null;
