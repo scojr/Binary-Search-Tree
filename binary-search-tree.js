@@ -17,13 +17,25 @@ class Tree {
   constructor(root) {
     this.root = root;
   }
-  prettyPrintRoot() {
-    prettyPrint(this.root);
+  prettyPrint() {
+    prettyPrintRecursion(this.root);
+    function prettyPrintRecursion(node, prefix = "", isLeft = true) {
+      if (node === null) {
+        return;
+      }
+      if (node.right !== null) {
+        prettyPrintRecursion(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+      }
+      console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
+      if (node.left !== null) {
+        prettyPrintRecursion(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+      }
+    };
   }
 }
 
 const myTree = buildTree(unsortedArrays[1]);
-console.log(myTree.prettyPrintRoot());
+console.log(myTree.prettyPrint());
 
 function buildTree(array) {
   const sortedArray = mergeSort(array);
@@ -70,15 +82,3 @@ function mergeSort(array) {
   }
 }
 
-function prettyPrint(node, prefix = "", isLeft = true) {
-  if (node === null) {
-    return;
-  }
-  if (node.right !== null) {
-    prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
-  }
-  console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-  if (node.left !== null) {
-    prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
-  }
-};
