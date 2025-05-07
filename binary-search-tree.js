@@ -17,6 +17,16 @@ class Tree {
   constructor(array) {
     this.root = buildTree(array);
   }
+  find(value) {
+    return findRecursion(this.root, value);
+    function findRecursion(root, x) {
+      if (root === null) return null;
+      if (x === root.data) return root;
+      if (x < root.data) return findRecursion(root.left, x);
+      else if (x > root.data) return findRecursion(root.right, x);
+      return root;
+    }
+  }
   insert(value) {
     insertRecursion(this.root, value);
     function insertRecursion(root, x) {
@@ -70,6 +80,7 @@ class Tree {
 const myTree = new Tree(unsortedArrays[1]);
 myTree.insert(11);
 myTree.deleteItem(4);
+console.log(myTree.find(1));
 myTree.prettyPrint();
 
 function buildTree(array) {
