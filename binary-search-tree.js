@@ -17,6 +17,23 @@ class Tree {
   constructor(array) {
     this.root = buildTree(array);
   }
+  levelOrder(callback) {
+    if (typeof callback !== 'function') throw new TypeError('callback is not a function');
+    levelOrderRecursion([this.root]);
+    function levelOrderRecursion(queue) {
+      if (queue[0] === null || queue.length === 0) return;
+      callback(queue[0]);
+      if (queue[0].left) {
+        queue.push(queue[0].left);
+      };
+      if (queue[0].right) {
+        queue.push(queue[0].right);
+      };
+      queue.shift();
+      levelOrderRecursion(queue);
+      return queue;
+    }
+  }
   find(value) {
     return findRecursion(this.root, value);
     function findRecursion(root, x) {
@@ -82,6 +99,7 @@ myTree.insert(11);
 myTree.deleteItem(4);
 console.log(myTree.find(1));
 myTree.prettyPrint();
+myTree.levelOrder(node => console.log(node.data));
 
 function buildTree(array) {
   const sortedArray = mergeSort(array);
