@@ -17,21 +17,47 @@ class Tree {
   constructor(array) {
     this.root = buildTree(array);
   }
+
+  postOrder(callback) {
+    if (typeof callback !== 'function') throw new TypeError('callback is not a function');
+    postOrderRecursion(this.root);
+    function postOrderRecursion(node) {
+      if (node === null) return;
+      postOrderRecursion(node.left);
+      postOrderRecursion(node.right);
+      callback(node);
+    }
+  }
+  preOrder(callback) {
+    if (typeof callback !== 'function') throw new TypeError('callback is not a function');
+    preOrderRecursion(this.root);
+    function preOrderRecursion(node) {
+      if (node === null) return;
+      callback(node);
+      preOrderRecursion(node.left);
+      preOrderRecursion(node.right);
+    }
+  }
+  inOrder(callback) {
+    if (typeof callback !== 'function') throw new TypeError('callback is not a function');
+    inOrderRecursion(this.root);
+    function inOrderRecursion(node) {
+      if (node === null) return;
+      inOrderRecursion(node.left);
+      callback(node);
+      inOrderRecursion(node.right);
+    }
+  }
   levelOrder(callback) {
     if (typeof callback !== 'function') throw new TypeError('callback is not a function');
     levelOrderRecursion([this.root]);
     function levelOrderRecursion(queue) {
       if (queue[0] === null || queue.length === 0) return;
       callback(queue[0]);
-      if (queue[0].left) {
-        queue.push(queue[0].left);
-      };
-      if (queue[0].right) {
-        queue.push(queue[0].right);
-      };
+      if (queue[0].left) queue.push(queue[0].left);
+      if (queue[0].right) queue.push(queue[0].right);
       queue.shift();
       levelOrderRecursion(queue);
-      return queue;
     }
   }
   find(value) {
@@ -95,11 +121,14 @@ class Tree {
 }
 
 const myTree = new Tree(unsortedArrays[1]);
-myTree.insert(11);
+myTree.insert(5);
 myTree.deleteItem(4);
 console.log(myTree.find(1));
 myTree.prettyPrint();
-myTree.levelOrder(node => console.log(node.data));
+// myTree.levelOrder(node => console.log(node.data));
+// myTree.inOrder(node => console.log(node.data));
+// myTree.preOrder(node => console.log(node.data));
+// myTree.postOrder(node => console.log(node.data));
 
 function buildTree(array) {
   const sortedArray = mergeSort(array);
