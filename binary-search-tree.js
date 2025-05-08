@@ -18,7 +18,6 @@ class Tree {
     this.root = buildTree(array);
   }
 
-<<<<<<< HEAD
   postOrder(callback) {
     if (typeof callback !== 'function') throw new TypeError('callback is not a function');
     postOrderRecursion(this.root);
@@ -79,67 +78,11 @@ class Tree {
       if (x < root.data) root.left = insertRecursion(root.left, x);
       else if (x > root.data) root.right = insertRecursion(root.right, x);
       return root;
-=======
-  delete(value) {
-    const getNode = this.getNearestNode(value);
-    console.log(getNode.parentNode);
-    if (getNode.node.data !== value) throw new Error(`Value '${value}' not found`);
-
-    // leaf node
-    if (getNode.node.right === null && getNode.node.left === null) {
-      if (getNode.parentNode.data > value) getNode.parentNode.left = null;
-      else getNode.parentNode.right = null;
-    }
-    // node has single child
-    if (getNode.node.right === null && getNode.node.left !== null) {
-      if (getNode.parentNode.data > value) {
-        getNode.parentNode.left = getNode.node.left;
-      } else {
-        getNode.parentNode.right = getNode.node.left;
-      };
-      return;
-    }
-    if (getNode.node.right !== null && getNode.node.left === null) {
-      if (getNode.parentNode.data > value) {
-        getNode.parentNode.left = getNode.node.right;
-      } else {
-        getNode.parentNode.right = getNode.node.right;
-      };
-      return;
-    }
-    // node has both children
-    const successor = getSuccessor(getNode.node);
-    console.log(successor)
-    if (getNode.node.right !== null && getNode.node.left !== null) {
-      getNode.data = successor.data;
-    }
-
-    function getSuccessor(num) {
-      num = num.right;
-      while (num !== null && num.left !== null) {
-        num = num.left
-      }
-      return num;
-    }
-
-  }
-
-  insert(value) {
-    const getNode = this.getNearestNode(value);
-    const nearestNode = getNode.node || getNode.parentNode;
-    const newNode = new Node(value);
-    if (value <= nearestNode.data) {
-      nearestNode.left = newNode;
-    }
-    if (value > nearestNode.data) {
-      nearestNode.right = newNode;
->>>>>>> 7d3ebb2 (Add delete method to Tree class)
     }
   }
   deleteItem(value) {
     deleteRecursion(this.root, value)
 
-<<<<<<< HEAD
     function getSuccessor(curr) {
       curr = curr.right;
       while (curr !== null && curr.left !== null) curr = curr.left;
@@ -159,13 +102,6 @@ class Tree {
       }
       return root;
     }
-=======
-  findValue(value) {
-    const getNode = this.getNearestNode(value);
-    const nearestNode = getNode.node || getNode.parentNode;
-    if (nearestNode.data === value) return nearestNode;
-    return null;
->>>>>>> 7d3ebb2 (Add delete method to Tree class)
   }
   prettyPrint() {
     prettyPrintRecursion(this.root);
@@ -184,7 +120,6 @@ class Tree {
   }
 }
 
-<<<<<<< HEAD
 const myTree = new Tree(unsortedArrays[1]);
 myTree.insert(5);
 myTree.deleteItem(4);
@@ -208,12 +143,6 @@ function buildTree(array) {
     root.left = buildTreeRecursion(array, start, mid - 1);
     root.right = buildTreeRecursion(array, mid + 1, end);
     return root;
-=======
-  getNearestNode(value, node = this.root, parentNode) {
-    if (node === null || node.data === value) return { node, parentNode };
-    if (node.data > value) return this.getNearestNode(value, node.left, node);
-    if (node.data < value) return this.getNearestNode(value, node.right, node);
->>>>>>> 7d3ebb2 (Add delete method to Tree class)
   }
 }
 
@@ -250,28 +179,3 @@ function mergeSort(array) {
   }
 }
 
-<<<<<<< HEAD
-=======
-const tree = new Tree(unsortedArray);
-
-const prettyPrint = (node, prefix = "", isLeft = true) => {
-  if (node === null) {
-    return;
-  }
-  if (node.right !== null) {
-    prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
-  }
-  console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
-  if (node.left !== null) {
-    prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
-  }
-};
-
-tree.insert(53);
-tree.insert(78);
-prettyPrint(tree.root);
-console.log(tree.delete(7));
-console.log(tree.delete(23));
-console.log(tree.delete(8));
-prettyPrint(tree.root);
->>>>>>> 7d3ebb2 (Add delete method to Tree class)
