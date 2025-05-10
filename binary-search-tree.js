@@ -17,6 +17,18 @@ class Tree {
   constructor(array) {
     this.root = buildTree(array);
   }
+  isBalanced() {
+    let result = true;
+    this.preOrder(node => {
+      let leftHeight = 0;
+      let rightHeight = 0;
+      if (node.left) leftHeight = this.height(node.left.data);
+      if (node.right) rightHeight = this.height(node.right.data);
+      if (leftHeight - rightHeight > 2 || leftHeight - rightHeight < 0) result = false;
+      console.log(leftHeight - rightHeight);
+    })
+    return result;
+  }
   height(value) {
     let result = null;
     this.getLevels((node, level) => {
@@ -156,10 +168,7 @@ myTree.prettyPrint();
 // myTree.inOrder(node => console.log(node.data));
 // myTree.preOrder(node => console.log(node.data));
 // myTree.postOrder(node => console.log(node.data));
-console.log(myTree.depth(5));
-console.log(myTree.depth(10));
-console.log(myTree.height(1));
-
+console.log(myTree.isBalanced());
 
 function buildTree(array) {
   const sortedArray = mergeSort(array);
