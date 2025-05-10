@@ -17,6 +17,20 @@ class Tree {
   constructor(array) {
     this.root = buildTree(array);
   }
+  height(value) {
+    let result = null;
+    this.getLevels((node, level) => {
+      if (node.data === value) result = this.getLevels().length - level;
+    })
+    return result
+  }
+  depth(value) {
+    let result = null;
+    this.getLevels((node, level) => {
+      if (node.data === value) result = level;
+    })
+    return result
+  }
   postOrder(callback) {
     if (typeof callback !== 'function') throw new TypeError('callback is not a function');
     postOrderRecursion(this.root);
@@ -47,12 +61,13 @@ class Tree {
       inOrderRecursion(node.right);
     }
   }
-  getLevels() {
+  getLevels(callback) {
     const result = [];
     getLevelsRecursion(this.root, 0, result);
     return result;
     function getLevelsRecursion(root, level, result) {
       if (root === null) return;
+      if (callback) callback(root, level);
       if (result.length <= level) result.push([]);
       result[level].push(root.data);
       getLevelsRecursion(root.left, level + 1, result);
@@ -141,6 +156,9 @@ myTree.prettyPrint();
 // myTree.inOrder(node => console.log(node.data));
 // myTree.preOrder(node => console.log(node.data));
 // myTree.postOrder(node => console.log(node.data));
+console.log(myTree.depth(5));
+console.log(myTree.depth(10));
+console.log(myTree.height(1));
 
 
 function buildTree(array) {
