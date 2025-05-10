@@ -1,10 +1,3 @@
-const unsortedArrays = [
-  [20, 10, 30],
-  [0, 1, 3, 4, 6, 8, 7, 7, 7],
-  [-6, 0, 2.6, 11, 13],
-  [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324],
-];
-
 class Node {
   constructor(data) {
     this.data = data;
@@ -164,15 +157,6 @@ class Tree {
   }
 }
 
-const myTree = new Tree(unsortedArrays[1]);
-myTree.insert(12);
-myTree.insert(16);
-myTree.prettyPrint();
-console.log(myTree.isBalanced());
-myTree.rebalance();
-myTree.prettyPrint();
-console.log(myTree.isBalanced());
-
 function buildTree(array) {
   const sortedArray = mergeSort(array);
   const root = buildTreeRecursion(sortedArray, 0, sortedArray.length - 1);
@@ -222,3 +206,4 @@ function mergeSort(array) {
   }
 }
 
+export default Tree;
